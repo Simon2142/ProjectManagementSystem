@@ -1,0 +1,54 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%  Template for cucumber features  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Feature: [Feature Name] % navnet på vores feature
+  Description: % Forklarer hvad vores feature skal (kan slettes hvis det føles overflødigt, men godt til at skabe overblik)
+  Actor: % i vores tilfælde employee eller project manager
+
+  %Scenarie 1:
+  Scenario: [Scenario Name] % navn på hvad der sker i det specifikke scenarie (altså hvad der adskiller dette scenarie fra de andre). 
+    Given [Given some initial context - the givens] % Scenarier starter oftest med en given. Ikke sikkert at det er tilfældet i alle vores scenarier. 
+    When  [When an event occurs] % forklarer "når noget sker" fx. "når brugeren prøver at lave en aktivitet.
+    Then  [Then ensure some outcomes] % forklarer hvad det forventede udfald efter "when" states er gået igennem.
+    And [insert] % And can bruges hvis der er flere Given/When/Then i streg. Altså hvis der er to "Given" i streg så skrives 2. "Given" som "And". Såfremt der er mange "And" i streg kan man bruge "*" i stedet for "And", da der gør det lettere at læse.
+    But [insert contrast] % Bruges på samme måde som "And" men i scenarier hvor det man skriver står som kontrast til det forrige step. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%      Example (using but)         %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Scenario: something
+  Given one thing
+  And another thing
+  And yet another thing
+  When I open my eyes
+  Then I should see something
+  But I shouldn't see something else
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%      Example (buy banana)        %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Feature: Purchase Banana
+  Description: The act of buying a banana
+  Actor: Customer
+
+  Scenario: Customer has enough money to buy a banana
+    Given the customer has \$5
+    And the banana costs \$3
+    When the customer tries to buy the banana
+    Then the purchase should be successful
+    And the customer should receive the banana
+
+  Scenario: Customer does not have enough money to buy a banana
+    Given the customer has \$1
+    And the banana costs \$3
+    When the customer tries to buy the banana
+    Then the purchase should be declined
+    And the customer should be informed they do not have enough money
+
+% reference: https://cucumber.io/docs/gherkin/reference/#keywords
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Real cucumber features start below %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

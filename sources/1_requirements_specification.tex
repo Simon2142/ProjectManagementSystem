@@ -1,0 +1,100 @@
+% Indledning: Dette afsnit skal indeholde en kort indledning og opsummering afbesvarelsen.
+\subsection{Introduction}
+
+
+
+%Væsentlige begreber (ordliste, glossar): Dette afsnit skal indeholde en opremsning af de væsentlige begreber fra problem domænet. Hvert begreb gives en kort deﬁnition på nogle få liner. OBS: der kræves ingen domæneklassediagram. Dvs. klassediagram som viser problem domain
+\subsection{Essential Concepts}
+This section showcases the essential concepts of the project domain in a glossary.
+
+\subsubsection{Glossary}  % jeg lavede et overflødigt subsubsection fordi jeg gerne vil ehave paragraphs i table of content i pdf filen, og pdffiler kan ikke håndtere at springet fra subsection til paragraph... Det lidt grimt... men jeg vil gerne have muligheden for at navigere til specifikke elementer i table of content i pdf-filen.
+\paragraph*{Softwarehuset A/S:} A company which consists of around 50 employees and has 30 ongoing projects, which is in need of a new project management system.
+\paragraph*{Project management system:} A system to manage projects and time registration for Softwarehuset A/S. The system is internal, so no password control is needed for access, only employee initials.
+\paragraph*{Project:} A project contains selection of activities. A project is created when a major task needs to be done. A project needs a name, and an ID defined by the system, in the form year and number, for example 22001 , 22002, etc. Each project can have an assigned project manager with special privileges. A project can be ordered by a costumer, or be an internal project made for Softwarehuset A/S. A project typically has 30 activities, but some have upwards of 100.
+\paragraph*{Project activity:} A project activity is a task assigned to a project. For each activity, the project manager can define the expected working hours for completion, as well as set a starting date and a project duration (in weeks) The duration of an activity is typically 2-3 weeks.
+\paragraph*{Non-project activity:} An activity not related to a project, such as sick days, holidays, courses and more. These are created by employees themselves, and set with a name which combines their employee ID, as well as a date and duration (in days).
+\paragraph*{Employee:} Development staff member at Softwarehuset A/S, designated in the system with their initials (up to 4 characters), for example huba, ahad, ekki, etc. An employee can be assigned an activity by a project manager, and has to self-register the amount of time used on all active activities on a daily basis. An employee typically works on less than 10 activites during a week, but some employees are allowed to work on up to 20 activities during a week. At the end of the day, an employee has to register the amount of time worked on a specific activity via a time registration ticket. An employee can only work up to 8 hours on a working day.
+\paragraph*{Project manager:} An employee can assign themselves as manager of a specific project. Project managers have exclusive rights to create, edit and remove activities from their projects, and can assign employees to activities, where they can see all available employees to assign. They can also set a starting-week, activity duration (in weeks) and expected workload, to determine the ending-week and weekly workload needed. They can further see how the time spent on activities and the project are proceeding, as well as how much work is still needed, and generate project reports for meetings.
+\paragraph*{Project registration:} Interaction with system to register projects. Projects can be registered by an employee, who must define a name and an ID. No project manager, starting week, duration or expected workload are assigned to the project when it is created.
+\paragraph*{Activity registration:} Interaction with system to register activities. Activities for a project can be created by the assigned project manager. If no project manager is assigned to a project, an employee may create project activities, but cannot set the expected workload, starting week and duration, that is beholden to the project manager. Employees can always create non-project activities, and set their starting day, week and year, and duration.
+\paragraph*{Time registration ticket:}  A note containing amount of time used on a particularly activity on a particular day in 1/2 hour precision. An employee has to create these tickets at the end of the day. Employees can edit their registrations.
+\paragraph*{Employee activity assignment:} Project leaders can assign one or multiple employees to an activity. When that happens, the expected workload is divided by the activity duration (in weeks) to produce an expected weekly workload for the employee(s).
+\paragraph*{Expected workload:} Expected hours to complete a project or an activity, set by the project manager.
+\paragraph*{Starting date:} A date indicating the starting time for a project or activity. For projects and project activities, the starting date is always the first day of a week. For non-project activities, the starting date can be any workday of a week.
+\paragraph*{Duration:} Indicates the duration of a project or an activity. For projects and project activities, the duration is always in working weeks. For non-project activities, the duration is always in working days.
+\paragraph*{Project reports:} A report generated by the project manager. The project manager can choose to generate a report for a given activity (using the name and furthermore the ID for disambiguation if needed), which contains the amount of time worked on that activity and also which employees spend that time, optionally he can create a day by day overview of the time spend on that activity. The project manager can also generate a report for a project, which contains the total amount of time spent on that project and which employees spend that time, optionally he can create a week by week overview of the time spend on that activity.
+
+
+%Dag i uge, uge og år
+%Project: første dag i ugen, uge, år og duration (uger)
+%Project activity: første dag i ugen, uge, år og duration (uger)
+%Non-project activity: bestemt dag i uge, uge, år og duration (dag)
+
+
+% Medarbejder:
+% - skal (hvis der ikke er projektleder på) gradvis opdele projektet i aktiviteter
+% - 
+
+% Projektlederen: (Kan alt hvad medarbejderen kan)
+% - skal gradvist opdele projektet i aktiviteter
+% - For hver aktivitet skal projektlederen kunne anføre forventet antal arbejdstimer til løsning af opgaven (budgetteret tid)
+% - Endvidere skal der kunne anføres start- og sluttid på aktiviteten
+
+% Aktivitet: 
+% - Budget ( i timer )
+% - starttid/sluttid (ugenummer)
+
+
+
+
+%Use case diagram: Dette afsnit skal give en beskrivelse af de væsentlige operationeri form af et use case diagram. Hvis et use case diagram bliver uoverskueligt, kan derogs˚a bruges ﬂere use case diagrammer. Husk et form˚alet af use case diagrammerer et skabe en oversigt over programmernes funktionalitet.
+\subsection{Use Case Diagram}
+
+A project manager is an extension of an employee, so all employee use cases also apply to project managers, but not the other way around.
+
+
+
+%Detaljeret use cases Der skal ogs˚a være detaljeret use cases med hoved– og al-ternative/fejl scenarier som Cucumber features. Der skal være 2 detaljeret usecases/Cucumber features til hver medlem i gruppen (dvs. 8 for ﬁrmandsgrupperog 10 for femmandsgrupper).
+\subsection{Detailed Use Cases}
+
+\begin{itemize}
+    \item As an employee:
+    \begin{itemize}
+        \item I want to be able to register time spent working on an activity on a given day.
+        \item I want to be able to create a project with a name and an ID.%Max 1
+        \item I want to be able to create a non-project activity and give it a starting date and expected duration. %Sebastian #2
+        \item I want to be able to set myself as project manager - for a project that doesn't have a manager - and set starting week, duration and expected workload %Max 2
+    \end{itemize}
+    
+    \item As an employee, given that there is no project manager on a project, I want to be able to register an activity on said project ( But not be able to set expected workload, starting week and duration) 
+
+
+    \item As a project manager for a given project, I want to be able to:
+    \begin{itemize}
+        \item create an activity in said project with expected workload as well as a starting date and a project duration. %Sebastian #1
+        \item edit an activity in said project.
+        \item remove an activity in said project. %Emil #1
+        \item assign an employee to an activity in said project (given that the employee is assigned to less than 20 activities for the given weeks). %Emil %2
+    \end{itemize}
+
+    
+    \item As a project manager, I want to be able to view the employees who are available during the time designated for an activity.
+
+    \item as a project manager, I want the system to create a detailed report of my project, which will easy my workload %Sebastian #3
+
+
+    
+\end{itemize}
+
+
+
+% \include{sources/CucuFeature}
+% \lstinputlisting[breaklines]{sources/CucuFeature.tex}
+% \inputminted{cucumber}{CucuFeatures}
+\include{sources/CucuFeature}
+%Afsnittet afsluttes med en kort diskussion, hvor, for eksempel, uklarheder i oplægget diskuteres, og hvor der gøres rede for valg og afgrænsninger.
+\subsection{Discussion}
+
+%Det at man kan registrere tid for en anden medarbejder, vil i vores program forstås som den samme handling, da det ikk er ønsket i programmet at man kan se hvem der registrere men kun hvem der registreres for.
+%Forklar vores 
+

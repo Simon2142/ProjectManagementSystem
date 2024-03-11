@@ -1,0 +1,374 @@
+\begin{lstlisting}
+##########################################
+####       Create a new project       ####
+##########################################
+Feature: Create a new project #Max 1
+    Description: Create a new project with a name and generated ID
+    Actor: Employee
+
+Scenario: New project is created
+    Given an employee exists
+    And the curent date is in the year 2024
+    When the employee creates a new project with the name "TestProject"
+    Then a project with the name "TestProject" and ID "24XYZ", where XYZ is the number of the project, is created
+
+Scenario: Project name already exists
+    Given an employee exists
+    And the curent date is in the year 2024
+    And a project with the name "TestProject" exists
+    When the employee creates a new project with the name "TestProject"
+    Then the project is not created, and an error message "Project already exists" appears
+
+
+
+##########################################
+####  Create project activity (empl.) ####
+##########################################
+
+Feature: Create a new project activity  #Simon 1
+    Description: Create a new project activity with  name, expected workload, starting date and duration in weeks, when there is no project leader.
+    Actor: Employee
+
+Scenario: New activity is created
+    Given an employee exists 
+    When the employee creates a new activity with the name "TestActivity", expected workload of "40" hours, starting in "2024" in the week "14" day "5" with a duration of "5" weeks.
+    Then a activity with the name "TestActivity", exptected workload of "40" hours, starting date "2024" "14" "5", duration of "5" weeks, and ID "24XYZ", where XYZ is the number of the activity, is created
+
+Scenario: Activity name already exists
+    Given an employee exists
+    And an activity with the name "TestActivity" exists
+    When the employee creates a new project with the name "TestActivity"
+    Then the activity is not created
+    And an error message "Activity already exists" appears
+
+
+##########################################
+####      Edit project activity       ####
+##########################################
+Feature: Edit a new project activity  #Simon 2
+    Description: Edit the id, name, expected workload, starting date and duration in weeks of a project activity.
+    Actor: Employee
+
+
+Scenario: Edit name and time contribution of an old activity
+    Given an employee exists 
+    And an activity with the name "TestActivity" exists, starting at date "2024, 14, 5" with a duration of "5" weeks.
+    When the employee changes the name to "ProperActivity" and the exptected workload of "40" hours, starting in "2024" in the week "14" day "5".
+    Then the project activitiy with the name "TestActivity" is deleted and a new project activity with name "ProperActivity" startingdate "2024, 14, 5", duration of "5" weeks, and ID "24XYZ", where XYZ is the number of the activity, is created
+
+Scenario: Activity name does not exists
+    Given an employee exists
+    And an no activity with the name "TestActivity" exists
+    When the employee tries to edit a project activity with the name "TestActivity"
+    Then an error message "Activity doesn't exists" appears
+
+
+
+##########################################
+####   Create non-project activity    ####
+##########################################
+Feature: Create non-project activity # Seb 2
+  Description: The act of creating a non-project activity
+  Actor: Employee
+
+  Scenario: Create a non-project activity
+    Given the Employee is logged in
+    And there is an activity with name "vacation" 
+    And the activity start "Monday" in week 6 with a duration of 14 days
+    When the Employee create the non-project activity
+    Then the non-project activity is created
+
+  Scenario: Creating a non-project activity when you are not Employee
+    Given the Employee is not logged in
+    And there is an activity with name "vacation" 
+    And the activity start "Monday" in week 6 with a duration of 14 days
+    When the Employee create the non-project activity
+    Then the error message "Login required" is given
+
+  Scenario: Create a non-project activity that already exists
+    Given the Employee is logged in
+    And a non-project activity exist
+    When the Employee create the non-project activity again
+    Then the error message "non-project Activity already exists" is given
+
+
+##########################################
+####   Edit non-project activity    ####
+##########################################
+
+Feature: Edit a non-project activity #Charlotte 1
+  Description: The act of editing a non-project-related activity.
+  Actor: Employee
+
+  Scenario: Edit non-project activity.
+    Given non-project activity exists and when you are logged in
+    And there is a non-project activity with the name "Non-project activity"
+    And it has a start-day
+    And it has a duration
+    When the Employee has changed the non-project activity name, and changed the start-day, and changed the duration
+    Then the non-project activity name, start-day, and duration of the activity are updated.
+
+  Scenario: Non-project activity does not exist.
+   Given that non-project activity "Non-project activity" does not exist and when you are logged in
+    When the Employee tries to edit the non-project activity
+    Then an error message "non-project activity doesn't exist"
+
+  
+##########################################
+#### Register time spend on activity ####
+##########################################
+Feature: Add time registration ticket # Simon 3
+  Description: Add a receipt for the time you spend doing some activity
+  Actor: Employee
+
+  Scenario: Add time registration ticket
+    Given the Employee is logged in
+    And a "Activity1" exist
+    When the Employee marks "9" half-hours spend on "Activity1" on the date "2024, 14, 1"
+    Then a time registration ticket with "9" timeInHalfHours and date "2024, 14, 1"
+
+
+##########################################
+####        Set project manager       ####
+##########################################
+Feature: Set project manager for a project#Max 2
+  Description: An employee assigns themselves as project manager for an unassigned project, and sets the starting week, duration and expected workload
+  Actor: Employee / Project manager
+
+  Scenario: Self-assign as project manager
+    Given an employee exists
+    And a project without a project manager exists
+    When the employee self-assigns themselves as project manager of the project
+    Then they become the project manager of the project
+    
+  Scenario: Project manager is already assigned
+    Given an employee exists
+    And a project with a project manager exists
+    When the employee self-assigns themselves as project manager of the project
+    Then they do not become the project manager, and an error message "Project already has an assigned project manager" appears
+
+  Scenario: Set starting week, duration and expected workload
+    Given an employee exists
+    And he is the project manager of a project
+    When the project manager sets the starting week as week 5, the duration as 3 weeks, and expected workload as 200 hours
+    Then the starting week of the project is week 5, the duration is 3 weeks, and the expected workload is 200 hours
+
+
+
+##########################################
+####     Create project activity      ####
+##########################################
+Feature: Create project activity # Seb 1
+  Description: The act of creating an activity for a project
+  Actor: Project manager
+
+  Scenario: Create a project activity
+    Given there is an activity with the name "Create tests" 
+    And the activity starts in week 6 with a duration of 3 weeks and an expected workload of 100 hours
+    And there is a project with the name "Project X" without a project activity named "Create tests"
+    And the Project manager for "Project x" is "Adam"
+    When the Project manager creates the project activity
+    And states that the actor is "Adam"
+    Then the project activity is created
+    And the project activity is now part of the project
+
+  Scenario: Creating a project activity when you are not Project manager
+    Given there is an activity with the name "Create tests" 
+    And the activity start in week 6 with a duration of 3 weeks and an expected workload of 100 hours
+    And there is a project with the name "Project X" without a project activity named "Create tests"
+    And the Project manager for "Project x" is "Adam"
+    When the Project manager create the project activity
+    And states that the actor is "Fred"
+    Then the error message "You are not managing this project" is given
+
+  Scenario: Create a project activity in a project that does not exist
+    Given there is an activity with name "Create tests" 
+    And the activity start in week 6 with a duration of 3 weeks and an expected workload of 100 hours
+    And there is not a project with the name "Project X"
+    When the Project manager create the project activity  
+    Then the error message "Project does not exist" is given
+
+  Scenario: Create a project activity that already exists in project
+    Given there is an activity with name "Create tests" 
+    And the activity start in week 6 with a duration of 3 weeks and an expected workload of 100 hours
+    And there is a project with the name "Project X" with a project activity named "Create tests"
+    When the Project manager create the project activity
+    Then the error message "Project activity already exists in project" is given
+
+
+
+##########################################
+####     Remove project activity      ####
+##########################################
+Feature: Remove project activity # Emil 1
+  Description: The act of removing a project activity
+  Actor: Project manager
+
+  Scenario: Remove an existing project activity when you are the project manager for the project containing said activity
+    Given there is a project with name "project1"
+    And the project manager for "project1" is "Pete"
+    And "project1" contains an activity "activity1"
+    When the project manager tries to remove "activity1"
+    And the project manager states that the activity should be removed from "project1"
+    And the project manager states that "Pete" is the one doing the action
+    Then the activity is removed 
+    And "project1" no longer contains an activity called "activity1"
+
+  Scenario: Remove an existing project activity when you are not the project manager for the project containing said activity
+    Given there is a project with name "project2"
+    And the project manager for "project2" is "Gabe"
+    And "project2" contains an activity "activity2"
+    When the project manager tries to remove "activity2"
+    And the project manager states that the activity should be removed from "project2"
+    And the project manager states that "Mike" is the one doing the action
+    Then the actor should be informed the the action has to be done by the project manager
+    And the activity is not removed
+    And "project2" still contains an activity called "activity2"
+
+  Scenario: Remove a project activity from a project that does not contain said activity 
+    Given there is a project with name "project3"
+    And the project manager for "project3" is "John"
+    And "project3" does not contain an activity "activity3"
+    When the project manager tries to remove "activity3"
+    And the project manager states that the activity should be removed from "project3"
+    And the project manager states that "John" is the one doing the action
+    Then the actor should be informed that "activity3" does not exist
+    And no project is removed
+
+  Scenario: Remove a project activity from a project that does not exist
+    Given no project called "project4" exists
+    When the actor tries to remove "activity4" from "project4"
+    Then the actor should be informed that the given project does not exist
+    And no project activity is removed
+
+##########################################
+####  Assign employee to an activity  ####
+##########################################
+Feature: Assign an employee to a project-activity # Emil 2
+  Description: The act of assigning an employee to a project-activity
+  Actor: project manager
+
+  Scenario: Assign an employee to an activity in a project when the employee has not exceeded 19 activities for the time of the project and you are the project manager for the project
+    Given there is a project with name "project1"
+    * the project manager for "project1" is "Adam"
+    * the project contains an activity "activity1"
+    * there exists an employee "Fred"
+    * "Fred" has 19 assigned activities for the weeks assigned to "activity1"
+    * "Fred" is not assigned to "activity1"
+    When the project manager tries to assign "Fred" to "activity1" in "project1"
+    And states that the actor is "Adam"
+    Then "Fred" is assigned to "activity1"
+    And "Fred" has 20 assigned activities for the weeks assigned to "activity1"
+
+  Scenario: Assign an employee to an activity in a project when the employee has exceeded 19 activities for the time of the project
+    Given there is a project with name "project2"
+    * the project manager for "project2" is "Adam"
+    * the project contains an activity "activity2"
+    * there exists an employee "Fred"
+    * "Fred" has 20 assigned activities for the weeks assigned to "activity2"
+    * "Fred" is not assigned to "activity2"
+    When the project manager tries to assign "Fred" to "activity2" in "project2"
+    And states that the actor is "Adam"
+    Then the project manager is informed that the employee is already assigned 20 activities for the given time
+    And "Fred" is not assigned to "activity2"
+    And "Fred" has 20 assigned activities for the weeks assigned to "activity2"
+
+  Scenario: Assign an employee to an activity where you are not the project manager for the project
+    Given there is a project with name "project3"
+    * the project manager for "project3" is "Adam"
+    * the project contains an activity "activity3"
+    * there exists an employee "Fred"
+    * "Fred" has 19 assigned activities for the weeks assigned to "activity3"
+    * "Fred" is not assigned to "activity3"
+    When the project manager tries to assign "Fred" to "activity3" in "project3"
+    And states that the actor is "Dave"
+    Then the project manager is informed that the user "Dave" is not project manager for "project3" and can not assign employees to the given activity
+    And "Fred" is not assigned to "activity3"
+    And "Fred" has 19 assigned activities for the weeks assigned to "activity3"
+
+  Scenario: Assign an employee to an activity that does not exist
+    Given there is a project with name "project4"
+    * the project manager for "project4" is "Adam"
+    * the project does not contain an activity "activity4"
+    * there exists an employee "Fred"
+    When the project manager tries to assign "Fred" to "activity4" in "project4"
+    And states that the actor is "Adam"
+    Then the project manager is informed that the given activity does not exist
+    Then "Fred" is not assigned to "activity4"
+    And "Fred" has 19 assigned activities for the weeks assigned to "activity4"
+
+  Scenario: Assign an employee to an activity in a project that does not exist
+    Given no project named "project5" exists
+    * there exists an employee "Fred"
+    When the project manager tries to assign "Fred" to an activity in "project5"
+    Then the project manager is informed that the given project does not exist
+    And "Fred" is not assigned to an activity
+  
+  Scenario: Assign an employee to an activity in a project that the given employee is already assigned to
+    Given there is a project with name "project6"
+    * the project manager for "project6" is "Adam"
+    * the project contains an activity "activity6"
+    * there exists an employee "Fred"
+    * "Fred" has 19 assigned activities for the weeks assigned to "activity6"
+    * "Fred" is assigned to "activity6"
+    When the project manager tries to assign "Fred" to "activity6" in "project6"
+    And states that the actor is "Adam"
+    Then the project manager is informed that the employee is already assigned to the activities
+    And "Fred" has 19 assigned activities for the weeks assigned to "activity6"
+    And "Fred" is assigned to "activity6" once
+    But "Fred" is not assigned to "activity6" twice
+
+  Scenario: Assign an employee that does not exist to an activity
+    Given there is a project with name "project7"
+    * the project manager for "project7" is "Adam"
+    * the project contains an activity "activity7"
+    * there exists no employee "Fred"
+    When the project manager tries to assign "Fred" to "activity7" in "project7"
+    And states that the actor is "Adam"
+    Then the project manager is informed that the given employee does not exist
+    And no employee "Fred" exists
+    And no employee is assigned to "activity7"
+
+
+
+##########################################
+####     Check avaliable employee     ####
+##########################################
+
+
+##########################################
+####      Edit project activity     ####
+##########################################
+
+
+
+##########################################
+####        Get project report        ####
+##########################################
+Feature: Create project report # Seb 3
+  Description: The act of creating a project report
+  Actor: Project Manager
+
+  Scenario: Create a project report
+    Given there is a project named "testProject"
+    And the Project Manager for "testProject" is "Adam" 
+    When the Project Manager create the project report
+    And states that the actor is "Adam"
+    Then the project report is created
+
+  Scenario: Creating a project report when you are not Project Manager
+    Given there is a project named "testProject"
+    And the Project Manager for "testProject" is "Adam" 
+    When the Project Manager create the project report
+    And states that the actor is "Fred"
+    Then the error message "You are not managing testProject" is given
+
+  Scenario: Create a project report for a project that doesn't exist
+    Given there is no project named "testProject"
+    When the Project Manager create the project report
+    Then the error message "project doesn't exist" is given
+
+
+\end{lstlisting}
+
+

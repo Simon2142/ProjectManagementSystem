@@ -1,0 +1,150 @@
+\documentclass[12pt,oneside,a4paper,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2.25cm,headheight=26pt,includeheadfoot]{geometry}
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage[framed, numbered]{matlab-prettifier}
+\usepackage{changepage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{caption}
+\usepackage{tocloft}
+\usepackage{setspace}
+\usepackage{multirow}
+\usepackage{titling}
+\usepackage{float}
+\usepackage{comment}
+\usepackage{booktabs}
+\usepackage{indentfirst}
+\usepackage{lscape}
+\usepackage{booktabs,caption}
+\usepackage[flushleft]{threeparttable}
+\usepackage[english]{nomencl}
+\usepackage{xcolor}
+\usepackage{lipsum}
+\usepackage{tikz}
+\usepackage[final]{pdfpages}
+\usepackage{graphicx}
+\usepackage{resizegather}
+\usepackage{tabularx}
+\usepackage[numbers]{natbib}
+\usepackage{verbatim}
+
+\usepackage{xcolor}
+\usepackage{listings}
+
+% Define Cucumber language settings
+\lstdefinelanguage{cucumber}{
+  morekeywords={Feature, Scenario, Given, When, Then, And},
+  keywordstyle=\color{blue},
+  sensitive=false,
+  morecomment=[l]{\#},
+  morestring=[b]',
+  morestring=[b]",
+}
+
+% Define a custom style for Cucumber code
+\lstdefinestyle{cucumberstyle}{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+}
+
+
+
+
+% --- set footer and header ---
+\pagestyle{fancy}
+\fancyhf{}
+
+\setlength{\parindent}{2em}
+\title{Report 1 - Group 9} % to reference as \title, dont use \maketitle
+\makeatletter\let\Title\@title\makeatother
+
+
+
+\lstset{language=Matlab,
+style=Matlab-editor,
+basicstyle=\normalsize\mlttfamily,
+numbers=left,
+numberstyle={\scriptsize\color{black}},			% size of the numbers
+numbersep=0.5cm											
+}
+\lstset{language=cucumber, style=cucumberstyle}
+
+
+\newlist{steps}{enumerate}{1}
+\setlist[steps, 1]{leftmargin=1.5cm,label = Step \arabic*:}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+%\lhead{\Title}
+\rhead{\nouppercase{\rightmark}}
+\lhead{\Title}
+\rfoot{\includegraphics[height=1.25cm]{root/logo.pdf}} % right header logo
+\setlength\headheight{16pt}
+\setlength{\footskip}{50pt}
+\lhead{\Title} %rightH title
+\cfoot{\thepage}
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{3}
+
+
+% --- End of page settings ---
+
+
+
+\begin{document}
+\pagenumbering{roman} 
+\input{sources/0_frontpage.tex}
+
+\newpage
+\doublespacing
+%\addcontentsline{toc}{section}{Table of Contents}
+\renewcommand{\baselinestretch}{1}\normalsize
+\tableofcontents
+\renewcommand{\baselinestretch}{1}\normalsize
+%\singlespacing
+\thispagestyle{fancy} % force page style
+
+\newpage
+\pagenumbering{arabic} 
+\fancyfoot[C]{Page \thepage\ of \pageref{EndOfText}}
+
+\section{Requirements specification} \label{ch1}
+\input{sources/1_requirements_specification} 
+
+\section{Program Design} \label{ch1}
+\input{sources/2_program_design} 
+
+\label{EndOfText}
+
+
+
+\newpage
+\section{References}
+%\addcontentsline{toc}{section}{References}
+\bibliography{document.bib} 
+\bibliographystyle{IEEEtranN}
+
+\newpage
+\section{Appendix} \label{ch6}
+
+\label{endOfDoc}
+\end{document}
+
+
+
