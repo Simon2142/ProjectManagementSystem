@@ -39,16 +39,19 @@
 \usepackage[numbers]{natbib}
 \usepackage{verbatim}
 
+
 \usepackage{xcolor}
 \usepackage{listings}
 
 % Define Cucumber language settings
-\lstdefinelanguage{cucumber}{
-  morekeywords={Feature, Scenario, Given, When, Then, And},
-  keywordstyle=\color{blue},
-  sensitive=false,
+\definecolor{mydarkgreen}{RGB}{0,100,0}
+\lstdefinelanguage{Cucumber}{
+  morekeywords={Feature, Scenario, Given, When, Then, And, Description, Actor},
+  keywordstyle=\color{blue}\bfseries,
   morecomment=[l]{\#},
-  morestring=[b]',
+  commentstyle=\color{gray}\ttfamily,
+  stringstyle=\color{mydarkgreen},
+  basicstyle=\ttfamily\small,
   morestring=[b]",
 }
 
@@ -142,6 +145,8 @@ numbersep=0.5cm
 
 \newpage
 \section{Appendix} \label{ch6}
+
+
 
 \label{endOfDoc}
 \end{document}

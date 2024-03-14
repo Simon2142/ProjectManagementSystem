@@ -49,43 +49,44 @@ This section showcases the essential concepts of the project domain in a glossar
 
 %Use case diagram: Dette afsnit skal give en beskrivelse af de væsentlige operationeri form af et use case diagram. Hvis et use case diagram bliver uoverskueligt, kan derogs˚a bruges ﬂere use case diagrammer. Husk et form˚alet af use case diagrammerer et skabe en oversigt over programmernes funktionalitet.
 \subsection{Use Case Diagram}
-The below use case diagram showcases all general user interactions with the 
-
+The below use case diagram showcases all general user interactions with the system.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/Use_case.drawio.png}
+    \caption{Use case diagram}
+    %\label{fig:X}
+\end{figure}
 A project manager is an extension of an employee, so all employee use cases also apply to project managers, but not the other way around.
 
 
 
 %Detaljeret use cases Der skal ogs˚a være detaljeret use cases med hoved– og al-ternative/fejl scenarier som Cucumber features. Der skal være 2 detaljeret usecases/Cucumber features til hver medlem i gruppen (dvs. 8 for ﬁrmandsgrupperog 10 for femmandsgrupper).
-\subsection{Detailed Use Cases}
-
+\subsection{Detailed Use Cases} \label{cucumber}
+A list encompassing the available use cases to develop tests for was compiled.
 \begin{itemize}
-    \item As an employee:
+    \item As an employee, I want to be able to:
     \begin{itemize}
-        \item I want to be able to register time spent working on an activity on a given day.
-        \item I want to be able to create a project with a name and an ID.%Max 1
-        \item I want to be able to create a non-project activity and give it a starting date and expected duration. %Sebastian #2
-        \item I want to be able to set myself as project manager - for a project that doesn't have a manager - and set starting week, duration and expected workload %Max 2
+        \item Login to the system.%1
+        \item Create a new project with a name and an ID.%2
+        \item Create a project activity for a project if no project manager has been assigned.
+        \item Create a non-project activity and give it a starting date and expected duration.%3
+        \item Edit a non-project activity.
+        \item Register time spent working on an activity on a given day, even if I haven't been specifically assigned to that activity.%4
+        \item Edit my registered time after submitting.
+        \item Set myself as project manager - for a project that doesn't have a manager - and set starting week, duration and expected workload.%5
     \end{itemize}
-    
-    \item As an employee, given that there is no project manager on a project, I want to be able to register an activity on said project ( But not be able to set expected workload, starting week and duration) 
-
-
     \item As a project manager for a given project, I want to be able to:
     \begin{itemize}
-        \item create an activity in said project with expected workload as well as a starting date and a project duration. %Sebastian #1
-        \item edit an activity in said project.
-        \item remove an activity in said project. %Emil #1
-        \item assign an employee to an activity in said project (given that the employee is assigned to less than 20 activities for the given weeks). %Emil %2
+        \item Edit the project.%6
+        \item Create an activity in said project with starting date, duration and expected workload.%7
+        \item Edit an activity in said project.
+        \item Assign an employee to an activity in said project. %8
+        \item View the employees who are available to be assigned during the time designated for an activity.%9
+        \item Create a detailed report of my project, which showcases relevant metrics for evaluation.%10
     \end{itemize}
-
-    
-    \item As a project manager, I want to be able to view the employees who are available during the time designated for an activity.
-
-    \item as a project manager, I want the system to create a detailed report of my project, which will easy my workload %Sebastian #3
-
-
-    
 \end{itemize}
+From this, we choose 10 use cases to develop testing features for. Each feature can have multiple scenarios enveloping the use case. The use cases are written as Cucumber features, and can be seen below.
+
 
 
 
@@ -93,9 +94,18 @@ A project manager is an extension of an employee, so all employee use cases also
 % \lstinputlisting[breaklines]{sources/CucuFeature.tex}
 % \inputminted{cucumber}{CucuFeatures}
 \include{sources/CucuFeature}
+
 %Afsnittet afsluttes med en kort diskussion, hvor, for eksempel, uklarheder i oplægget diskuteres, og hvor der gøres rede for valg og afgrænsninger.
 \subsection{Discussion}
 
-%Det at man kan registrere tid for en anden medarbejder, vil i vores program forstås som den samme handling, da det ikk er ønsket i programmet at man kan se hvem der registrere men kun hvem der registreres for.
+\begin{itemize}
+    \item We do not have a "create new account" use case, because normally in firms the systems administrator creates the account and gives the login to the new employee. Since the project description didn't say anything about a system administrator, we did not include this actor.
+    \item We do not have a "list all projects", "list all activities" or "change current project" (aka. \texttt{ls} and \texttt{cd}) use case, because they were (apparently) considered to fundemantal to be tested.
+\end{itemize}
+
+
+% Det at man kan registrere tid for en anden medarbejder, vil i vores program forstås som den samme handling, da det ikk er ønsket i programmet at man kan se hvem der registrere men kun hvem der registreres for.
 %Forklar vores 
+
+
 
