@@ -15,6 +15,9 @@ Employee
 name: String
 id: String
 AllowedProjectsPerWeek: int = 10
+--
+createProject(String)
+
     </panel_attributes>
     <additional_attributes/>
   </element>
