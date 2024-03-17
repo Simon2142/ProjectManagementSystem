@@ -1,28 +1,33 @@
 % Indledning: Dette afsnit skal indeholde en kort indledning og opsummering afbesvarelsen.
 \subsection{Introduction}
-
-
+\noindent Softwarehuset A/S is in need of a project management system, that allows their employees to plan out and execute projects and activities, as well as register their time spent. A requirements specification is given, detailing a range of functionality and implementation requirements.
+\\\\
+This report details the first phase of designing a software solution to accomplish this. The report is split in two parts.\\
+The first section details the requirements specification of the project. It contains the essential concepts of our solution defined in a glossary, followed by a use case diagram showcasing the scope of user interactions, and 10 cucumber features with main and alternate scenarios to test the logic implementation of the use case functionalities.\\
+The second section section details the program design. It contains a class diagram prototype, that binds the requirements specification to a program design structure, followed by sequence diagrams detailing the program execution for each of the 10 cucumber features.\\
+\\
+Please make use of the detailed table of content in the side of your pdf-viewer to navigate the different definition, detailed use-cases and sequence diagrams, thank you.
 
 %Væsentlige begreber (ordliste, glossar): Dette afsnit skal indeholde en opremsning af de væsentlige begreber fra problem domænet. Hvert begreb gives en kort deﬁnition på nogle få liner. OBS: der kræves ingen domæneklassediagram. Dvs. klassediagram som viser problem domain
 \subsection{Essential Concepts}
-This section showcases the essential concepts of the project domain in a glossary.
+\noindent This section showcases the essential concepts of the project domain in a glossary.
 
-\subsubsection{Glossary}  % jeg lavede et overflødigt subsubsection fordi jeg gerne vil ehave paragraphs i table of content i pdf filen, og pdffiler kan ikke håndtere at springet fra subsection til paragraph... Det lidt grimt... men jeg vil gerne have muligheden for at navigere til specifikke elementer i table of content i pdf-filen.
-\paragraph*{Softwarehuset A/S:} A company which consists of around 50 employees and has 30 ongoing projects, which is in need of a new project management system.
-\paragraph*{Project management system:} A system to manage projects and time registration for Softwarehuset A/S. The system is internal, so no password control is needed for access, only employee initials.
-\paragraph*{Project:} A project contains selection of activities. A project is created when a major task needs to be done. A project needs a name, and an ID defined by the system, in the form year and number, for example 22001 , 22002, etc. Each project can have an assigned project manager with special privileges. A project can be ordered by a costumer, or be an internal project made for Softwarehuset A/S. A project typically has 30 activities, but some have upwards of 100.
-\paragraph*{Project activity:} A project activity is a task assigned to a project. For each activity, the project manager can define the expected working hours for completion, as well as set a starting date and a project duration (in weeks) The duration of an activity is typically 2-3 weeks.
-\paragraph*{Non-project activity:} An activity not related to a project, such as sick days, holidays, courses and more. These are created by employees themselves, and set with a name which combines their employee ID, as well as a date and duration (in days).
-\paragraph*{Employee:} Development staff member at Softwarehuset A/S, designated in the system with their initials (up to 4 characters), for example huba, ahad, ekki, etc. An employee can be assigned an activity by a project manager, and has to self-register the amount of time used on all active activities on a daily basis. An employee typically works on less than 10 activites during a week, but some employees are allowed to work on up to 20 activities during a week. At the end of the day, an employee has to register the amount of time worked on a specific activity via a time registration ticket. An employee can only work up to 8 hours on a working day.
-\paragraph*{Project manager:} An employee can assign themselves as manager of a specific project. Project managers have exclusive rights to create, edit and remove activities from their projects, and can assign employees to activities, where they can see all available employees to assign. They can also set a starting-week, activity duration (in weeks) and expected workload, to determine the ending-week and weekly workload needed. They can further see how the time spent on activities and the project are proceeding, as well as how much work is still needed, and generate project reports for meetings.
-\paragraph*{Project registration:} Interaction with system to register projects. Projects can be registered by an employee, who must define a name and an ID. No project manager, starting week, duration or expected workload are assigned to the project when it is created.
-\paragraph*{Activity registration:} Interaction with system to register activities. Activities for a project can be created by the assigned project manager. If no project manager is assigned to a project, an employee may create project activities, but cannot set the expected workload, starting week and duration, that is beholden to the project manager. Employees can always create non-project activities, and set their starting day, week and year, and duration.
-\paragraph*{Time registration ticket:}  A note containing amount of time used on a particularly activity on a particular day in 1/2 hour precision. An employee has to create these tickets at the end of the day. Employees can edit their registrations.
-\paragraph*{Employee activity assignment:} Project leaders can assign one or multiple employees to an activity. When that happens, the expected workload is divided by the activity duration (in weeks) to produce an expected weekly workload for the employee(s).
-\paragraph*{Expected workload:} Expected hours to complete a project or an activity, set by the project manager.
-\paragraph*{Starting date:} A date indicating the starting time for a project or activity. For projects and project activities, the starting date is always the first day of a week. For non-project activities, the starting date can be any workday of a week.
-\paragraph*{Duration:} Indicates the duration of a project or an activity. For projects and project activities, the duration is always in working weeks. For non-project activities, the duration is always in working days.
-\paragraph*{Project reports:} A report generated by the project manager. The project manager can choose to generate a report for a given activity (using the name and furthermore the ID for disambiguation if needed), which contains the amount of time worked on that activity and also which employees spend that time, optionally he can create a day by day overview of the time spend on that activity. The project manager can also generate a report for a project, which contains the total amount of time spent on that project and which employees spend that time, optionally he can create a week by week overview of the time spend on that activity.
+\subsubsection{Glossary}  % jeg lavede et overflødigt subsubsection fordi jeg gerne vil ehave \paragraphs i table of content i pdf filen, og pdffiler kan ikke håndtere at springet fra subsection til \paragraph... Det lidt grimt... men jeg vil gerne have muligheden for at navigere til specifikke elementer i table of content i pdf-filen.
+\paragraph{Softwarehuset A/S}: A company which consists of around 50 employees and has 30 ongoing projects, which is in need of a new project management system.
+\paragraph{Project management system}: A system to manage projects and time registration for Softwarehuset A/S. The system is internal, so no password control is needed for access, only employee initials.
+\paragraph{Project}: A project contains selection of activities. A project is created when a major task needs to be done. A project needs a name, and an ID defined by the system, in the form year and number, for example 22001 , 22002, etc. Each project can have an assigned project manager with special privileges. A project can be ordered by a costumer, or be an internal project made for Softwarehuset A/S. A project typically has 30 activities, but some have upwards of 100.
+\paragraph{Project activity}: A project activity is a task assigned to a project. For each activity, the project manager can define the expected working hours for completion, as well as set a starting date and a project duration (in weeks) The duration of an activity is typically 2-3 weeks.
+\paragraph{Non-project activity}: An activity not related to a project, such as sick days, holidays, courses and more. These are created by employees themselves, and set with a name which combines their employee ID, as well as a date and duration (in days).
+\paragraph{Employee}: Development staff member at Softwarehuset A/S, designated in the system with their initials (up to 4 characters), for example huba, ahad, ekki, etc. An employee can be assigned an activity by a project manager, and has to self-register the amount of time used on all active activities on a daily basis. An employee typically works on less than 10 activites during a week, but some employees are allowed to work on up to 20 activities during a week. At the end of the day, an employee has to register the amount of time worked on a specific activity via a time registration ticket. 
+\paragraph{Project manager}: An employee can assign themselves as manager of a specific project. Project managers have exclusive rights to create, edit and remove activities from their projects, and can assign employees to activities, where they can see all available employees to assign. They can also set a starting-week, activity duration (in weeks) and expected workload, to determine the ending-week and weekly workload needed. They can further see how the time spent on activities and the project are proceeding, as well as how much work is still needed, and generate project reports for meetings.
+\paragraph{Project registration}: Interaction with system to register projects. Projects can be registered by an employee, who must define a name and an ID. No project manager, starting week, duration or expected workload are assigned to the project when it is created.
+\paragraph{Activity registration}: Interaction with system to register activities. Activities for a project can be created by the assigned project manager. If no project manager is assigned to a project, an employee may create project activities, but cannot set the expected workload, starting week and duration, that is beholden to the project manager. Employees can always create non-project activities, and set their starting day, week, year, and duration.
+\paragraph{Time registration ticket}:  A note containing amount of time used on a particularly activity on a particular day in 1/2 hour precision. An employee has to create these tickets at the end of the day. Employees can edit their registrations.
+\paragraph{Employee activity assignment}: Project leaders can assign one or multiple employees to an activity. When that happens, the expected workload is divided by the activity duration (in weeks) to produce an expected weekly workload for the employee(s).
+\paragraph{Expected workload}: Expected hours to complete a project or an activity, set by the project manager.
+\paragraph{Starting date}: A date indicating the starting time for a project or activity. For projects and project activities, the starting date is always the first day of a week. For non-project activities, the starting date can be any workday of a week.
+\paragraph{Duration}: Indicates the duration of a project or an activity. For projects and project activities, the duration is always in working weeks. For non-project activities, the duration is always in working days.
+\paragraph{Project reports}: A report generated by the project manager. The project manager can choose to generate a report for a given activity (using the name and furthermore the ID for disambiguation if needed), which contains the amount of time worked on that activity and also which employees spend that time, optionally he can create a day by day overview of the time spend on that activity. The project manager can also generate a report for a project, which contains the total amount of time spent on that project and which employees spend that time, optionally he can create a week by week overview of the time spend on that activity.
 
 
 %Dag i uge, uge og år
@@ -49,20 +54,20 @@ This section showcases the essential concepts of the project domain in a glossar
 
 %Use case diagram: Dette afsnit skal give en beskrivelse af de væsentlige operationeri form af et use case diagram. Hvis et use case diagram bliver uoverskueligt, kan derogs˚a bruges ﬂere use case diagrammer. Husk et form˚alet af use case diagrammerer et skabe en oversigt over programmernes funktionalitet.
 \subsection{Use Case Diagram}
-The below use case diagram showcases all general user interactions with the system.
+\noindent The below use case diagram showcases all general user interactions with the system.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/Use_case.drawio.png}
     \caption{Use case diagram}
     %\label{fig:X}
 \end{figure}
-A project manager is an extension of an employee, so all employee use cases also apply to project managers, but not the other way around.
+\noindent A project manager is an extension of an employee, so all employee use cases also apply to project managers, but not the other way around.
 
 
 
 %Detaljeret use cases Der skal ogs˚a være detaljeret use cases med hoved– og al-ternative/fejl scenarier som Cucumber features. Der skal være 2 detaljeret usecases/Cucumber features til hver medlem i gruppen (dvs. 8 for ﬁrmandsgrupperog 10 for femmandsgrupper).
 \subsection{Detailed Use Cases} \label{cucumber}
-A list encompassing the available use cases to develop tests for was compiled.
+\noindent A list encompassing the available use cases to develop tests for was compiled.
 \begin{itemize}
     \item As an employee, I want to be able to:
     \begin{itemize}
@@ -90,17 +95,21 @@ From this, we choose 10 use cases to develop testing features for. Each feature 
 
 
 
-% \include{sources/CucuFeature}
-% \lstinputlisting[breaklines]{sources/CucuFeature.tex}
-% \inputminted{cucumber}{CucuFeatures}
+
 \include{sources/CucuFeature}
 
 %Afsnittet afsluttes med en kort diskussion, hvor, for eksempel, uklarheder i oplægget diskuteres, og hvor der gøres rede for valg og afgrænsninger.
 \subsection{Discussion}
+\noindent In this section, the assumptions that form our interpretation of the project requirements and development of the chosen use cases are provided and discussed.
 
 \begin{itemize}
-    \item We do not have a "create new account" use case, because normally in firms the systems administrator creates the account and gives the login to the new employee. Since the project description didn't say anything about a system administrator, we did not include this actor.
-    \item We do not have a "list all projects", "list all activities" or "change current project" (aka. \texttt{ls} and \texttt{cd}) use case, because they were (apparently) considered to fundemantal to be tested.
+    \item Since a project manager is always an employee, and project managers only seem to differentiate themselves from other employees when it comes to the projects they manage, and do not wield more power outside their respective projects, we decided that Project managers should be an extension of Employee.
+    \item We decided that employees should login with their credentials / ID before being able to perform any actions, so that they won't have to sign each action in the system with their ID. There is no password control, as it is not necessary pr. the project requirements.
+    \item We do not have a "create new account" use case, because normally in firms the systems administrator creates the account and gives the login to the new employee. Since the project description didn't say anything about a system administrator, we did not include this actor. Therefore, the employees must also self-assign themselves as project leaders.
+    \item Our current date system is comprised of three numbers, a weekday int (1-5, since weekends are off-work), week int (week in year), and a year int. This is for simplicity's sake, to not use too much time on setting up date management, but it could be replaced with an actual date server later.
+    \item For now, we do not intend for the employee to navigate a file system / directory to be able to edit projects or activities. All employees can access all commands (assuming they are logged in), but their privileges will be verified when attempting something that requires authorization. This is so that we can focus on the logic implementation of the functionality first. If time allows it, we can refactor later to add a navigation system.
+    %\item We do not have a "list all projects", "list all activities" or "change current project" (aka. \texttt{ls} and \texttt{cd}) use case, because they were (apparently) considered too fundemantal to be tested.
+    \item We included a redundant subsubsection Glossary, because we wanted to use the latex paragraph feature as glossary entries. They are in level 4 and so we had to create a level 3 heading before it would be accepted by the navigatable table of content (TOC) in the pdf-format. 
 \end{itemize}
 
 

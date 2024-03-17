@@ -1,61 +1,99 @@
 %Klassediagram af programdesign (solution domain): Dette klassediagram skal værebindeledet mellem kravspeciﬁkation og program. Klasserne skal indeholde væsent-lige attributter og operationer med typer, s˚aledes at det fremg˚ar hvordan de væ-sentlige begreber modelleres og samtidigt skal diagrammet give et overblik overprogramdesign.OBS: Klassediagrammet m˚a ikke genereres ud fra Java-kode. Klassediagrammetskal modelleres ved hjælp af et af de værktøjer nævnt if forlæsningen, fx. UMLet2,VisualParadigm3osv.
 \subsection{Class Diagram of Program Design}
-The class diagram can be seen in \autoref{fig:ClassDiagram}.
+\noindent The class diagram of the overall program design can be seen in \autoref{fig:ClassDiagram}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{figures/ClassDiagram1.png}
-    \caption{Class diagram}
+    \includegraphics[width=\linewidth]{figures/Diagram 2024-03-17 13-52-15.png}
+    \caption{Class diagram for the project management system}
     \label{fig:ClassDiagram}
 \end{figure}
 
 
 %Sekvensdiagrammer: Dette afsnit indeholder sekvensdiagrammer for de use casesfra afsnit 1d, s˚aledes at læseren f˚a et overblik over hvordan programmet bør udføredisse scenarier som tilhører til disse use cases. Der skal være sekvensdiagrammertil to use cases til hver gruppemedlem (et sekvensdiagram til hver hoved- ogalternative scenarier af hver use case).
 \subsection{Sequence Diagrams} 
-This section contains sequence diagrams for all 10 Cucumber features found in section \ref{cucumber}.
+\noindent This section contains sequence diagrams for all 10 Cucumber features found in section \ref{cucumber}, with main and alternative scenarios included.
 
-\subsubsection*{Feature 1: Login to the system}
+\subsubsection{Feature 1: Login to the system}
 %1. Login to the system.
 
 
-\subsubsection*{Feature 2: Create a new project}%Max 1
+\subsubsection{Feature 2: Create a new project}%Max 1
 %2. Create a new project with a name and an ID.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/sd_ft2_max.drawio.png}
+    \caption{Sequence diagram for Feature 2: Create a new project, with alternative scenario}
+    
+\end{figure}
 
-
-\subsubsection*{Feature 3: Create non-project activity} %Charlotte 1
+\subsubsection{Feature 3: Create non-project activity} %Charlotte 1
 %3. Create a non-project activity and give it a starting date and expected duration.
 
 
-\subsubsection*{Feature 4: Register time spent on activity}
-%4. Register time spent working on an activity on a given day, even if I havent been specifically assigned to that activity.
+\subsubsection{Feature 4: Register time spent on activity}
+%4. Register time spent working on an activity on a given day, even if I havent been specifically assigned to that activity. % Simon 1
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/RegisterTimeSpendOnActivity.drawio.png}
+    \caption{Sequence diagram for Feature 4: Register time on activity}
+\end{figure}
 
 
-\subsubsection*{Feature 5: Set project manager for a project}%Max 2
+\subsubsection{Feature 5: Set project manager for a project}%Max 2
 %5. Set myself as project manager - for a project that doesn't have a manager - and set starting week, duration and expected workload.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/sd_ft5_max.drawio.png}
+    \caption{Sequence diagram for Feature 5: Set project manager for a project, with alternative scenario}
+    
+\end{figure}
 
 
-\subsubsection*{Feature 6: Edit project}
-%6. Edit the project.
+\subsubsection{Feature 6: Edit project}
+%6. Edit the project. %Simon 2
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/EditProject1.drawio.png}
+    \includegraphics[width=0.7\linewidth]{figures/EditProject2.drawio.png}
+    \caption{Sequence diagram for Feature 6: Edit project}
+\end{figure}
 
-
-\subsubsection*{Feature 7: Create project activity} %Charlotte 2
+\subsubsection{Feature 7: Create project activity} %Charlotte 2
 %7. Create an activity in said project with starting date, duration and expected workload.
 
 
-\subsubsection*{Feature 8: Assign an employee to a project activity}
+\subsubsection{Feature 8: Assign an employee to a project activity}
 %8. Assign an employee to an activity in said project.
 
 
-\subsubsection*{Feature 9: Check available employees} 
+\subsubsection{Feature 9: Check available employees} 
 %9. View the employees who are available to be assigned during the time designated for an activity.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/seeAvailableEmployees.png}
+    \caption{Sequence diagram for Feature 9: Check available employees, success scenario}
+    
+\end{figure}
 
-
-\subsubsection*{Feature 10: Create project report}
+\subsubsection{Feature 10: Create project report}
 %10. Create a detailed report of my project, which showcases relevant metrics for evaluation.
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/getProjectReport.png}
+    \caption{Sequence diagram for Feature 10: Create project report, success scenario}
+    
+\end{figure}
 
 
 
 %Afsnittet afsluttes med en kort diskussion hvor der, for eksempel, gøres rede for de valg derer truﬀet. Afsnittet kan ogs˚a omtale valg af algoritmer og datastrukturer.Slidserne i uge 6 anbefaler en process som kan bruges til at lave programdesign.
 \subsection{Discussion}
-
+\begin{itemize}
+    \item We have chosen not to include getter and setters in the class diagram, since they simply consist of the field name followed by \texttt{get} or \texttt{set}. This is the same way Hubert does in his videoes. Also there are no list of related objects, because they are represented by the arrows. All these conventions simply the diagram greatly, which is much needed, and the purpose of the class diagram.
+    \item Also of course there is no list of references to the related objects, becuase these are represented by the arrows.
+    \item There is no references to Date, it's a type we declare.
+    \item We have chosen to make activities store all the tickets, because in the project description it was important to quickly access the project report and not necessarily for employees to get quick acces to their tickets. We could maintain a list of the employees own tickets, but this would complicate the design since we would have to update it every time we change the tickets. We have chosen to have slightly slower computation time, if that feature is ever implemented.
+    \item The projectManagementsystem.app and projectManagementSystem.domain are simply folders containing the objects. 
+    \item We chose to make some of the lines in the class diagram oblique, because we found that square lines could be extremely confusing. This is in contradiction to the UML specification, but we found pictures of other people who did it the same way online.
+\end{itemize}
 

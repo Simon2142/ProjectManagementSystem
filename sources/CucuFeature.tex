@@ -12,10 +12,10 @@
 %10. Create a detailed report of my project, which showcases relevant metrics for evaluation.
 
 
-\subsubsection*{Feature 1: Login to the system}
+\subsubsection{Feature 1: Login to the system} %Emil 1
 %1. Login to the system. DONE
-\begin{lstlisting}
-Feature: Login to the system
+\begin{lstlisting} 
+Feature: Login to the system #Emil 1
     Description: Login into the system
     Actor: Employee
 
@@ -32,10 +32,10 @@ Scenario: Employee does not exists
     Then the employee is not logged into the system, and an error message "Employee ID does not exist" appears
 \end{lstlisting}
 
-\subsubsection*{Feature 2: Create a new project}%Max 1
+\subsubsection{Feature 2: Create a new project}%Max 1
 %2. Create a new project with a name and an ID. DONE
 \begin{lstlisting}
-Feature: Create a new project #Max 1
+Feature: Create a new project # Max 1
     Description: Create a new project with a name and generated ID
     Actor: Employee
 
@@ -53,7 +53,7 @@ Scenario: Project name already exists
     Then the project is not created, and an error message "Project already exists" appears
 \end{lstlisting}
 
-\subsubsection*{Feature 3: Create non-project activity} 
+\subsubsection{Feature 3: Create non-project activity} %Charlotte 1
 %3. Create a non-project activity and give it a starting date and expected duration. DONE
 \begin{lstlisting}
 Feature: Create non-project activity # Seb 2
@@ -74,10 +74,10 @@ Scenario: Create a non-project activity that already exists
     Then the error message "Non-project activity already exists" appears
 \end{lstlisting}
 
-\subsubsection*{Feature 4: Register time spent on activity} 
+\subsubsection{Feature 4: Register time spent on activity} 
 %4. Register time spent working on an activity on a given day, even if I havent been specifically assigned to that activity. DONE
 \begin{lstlisting}
-Feature: Register time spent on activity  # Simon 3
+Feature: Register time spent on activity  # Simon 1
     Description: Register the time spent on an activity on the given day
     Actor: Employee
 
@@ -109,11 +109,11 @@ Scenario: Edit time for non-project activity
 \end{lstlisting}
 
 
-\subsubsection*{Feature 5: Set project manager for a project}%Max 2
-%5. Set myself as project manager - for a project that doesn't have a manager - and set starting week, duration and expected workload. DONE
+\subsubsection{Feature 5: Set project manager for a project}%Max 2
+%5. Set myself as project manager - for a project that doesn't have a manager DONE
 \begin{lstlisting}
-Feature: Set project manager for a project#Max 2
-    Description: An employee assigns themselves as project manager for an unassigned project, and edits the project
+Feature: Set project manager for a project # Max 2
+    Description: An employee assigns themselves as project manager for an unassigned project
     Actor: Employee / Project manager
 
 Scenario: Self-assign as project manager
@@ -130,10 +130,10 @@ Scenario: Project manager is already assigned
     Then they do not become the project manager, and an error message "Project already has an assigned project manager" appears
 \end{lstlisting}
 
-\subsubsection*{Feature 6: Edit project}
+\subsubsection{Feature 6: Edit project}
 %6. Edit the project DONE
 \begin{lstlisting}
-Feature: Edit project
+Feature: Edit project # Simon 2
     Description: Set and edit the parameters of a project
     Actor: Project manager
 
@@ -164,7 +164,7 @@ Scenario: Change project name but already exists
     Then the project name is not changed and an error message "This project name already exists as a separate project" appears
 \end{lstlisting}
 
-\subsubsection*{Feature 7: Create project activity} %seb
+\subsubsection{Feature 7: Create project activity} %Charlotte 2
 %7. Create an activity in said project with starting date, duration and expected workload DONE
 \begin{lstlisting}
 Feature: Create project activity # Seb 1
@@ -185,7 +185,7 @@ Scenario: Change project activity name but already exists
     Then the project activity is not created, and an error message "This project activity name already exists as a activity" appears
  \end{lstlisting}   
 
-\subsubsection*{Feature 8: Assign an employee to a project activity}
+\subsubsection{Feature 8: Assign an employee to a project activity}
 %8. Assign an employee to an activity in said project. DONE
 \begin{lstlisting}
 Feature: Assign an employee to a project activity # Emil 2
@@ -199,21 +199,23 @@ Scenario: Assign employee to project activity
     When the project manager assigns an employee to the project activity
     The employee is assigned to the project activity
 
-Scenario: Assign another employee to project activity
-    Given an employee is logged in
-    And the employee is the project manager of a project "TestProject"
-    And an activity with the name "TestActivity" exists in the project
-    And an employee is assigned to the project activity
-    When the project manager assigns another employee to the project activity
-    The other employee is assigned to the project activity
-
 Scenario: Employee is unavailable for activity
     Given an employee is logged in
     And the employee is the project manager of a project "TestProject"
     And an activity with the name "TestActivity" exists in the project
     And another employee exists, who cannot take on more activities currently
     When the project manager assigns an employee to the project activity
-    Then the employee is not assigned to the project activity, and an error message "Employee cannot currently take on more activities" appears
+    Then the employee is not assigned to the project activity
+    And an error message "Employee cannot currently take on more activities" appears
+
+Scenario: project does not exist
+
+Scenario: Activity does not exist
+    Given an employee is logged in
+    And the employee is the project manager of a project "TestProject"
+    And no activity with the name "TestActivity" exists in the project
+    When the project manager tries to assign an employee to the activity
+    Then an error message "Activity does not exist in the given project"
 
 Scenario: Employee is already assigned to the activity
     Given an employee is logged in
@@ -222,13 +224,20 @@ Scenario: Employee is already assigned to the activity
     And another employee is already assigned to the activity
     When the project manager assigns the other employee to "TestActivity"
     Then the other employee is still assigned to "TestActivity" and an error message "This employee is already assigned to this activity" appears
+
+Scenario: Not project manager for given project
+    Given an employee is logged in
+    And the employee is not the project manager of a project "TestProject" 
+    And an activity with the name "TestActivity" exists in the project
+    When the project manager assigns the an employee to "TestActivity"
+    Then an error message "You are not the project manager for this project" appears
 \end{lstlisting}
 
 
-\subsubsection*{Feature 9: Check available employees}
+\subsubsection{Feature 9: Check available employees} %Seb 1
 %9. View the employees who are available to be assigned during the time designated for an activity. DONE
 \begin{lstlisting}
-Feature: Check available employees %Charlotte 2
+Feature: Check available employees # Charlotte 2 -> Seb 4
     Description: The act of checking the employees schedule for a specific project
     Actor: Project manager
 
@@ -249,7 +258,7 @@ Scenario: No employees are available
 \end{lstlisting}
 
 
-\subsubsection*{Feature 10: Create project report}    %seb2
+\subsubsection{Feature 10: Create project report} %Seb 2
 %10. Create a detailed report of my project, which showcases relevant metrics for evaluation. DONE
 \begin{lstlisting}
 Feature: Create project report # Seb 3
@@ -269,7 +278,7 @@ Scenario: An employee, who isn't the project manager of the project, wants to ge
     Then the report is not shown, and an error message "Only the project manager can generate reports" appears
 \end{lstlisting}
 
-\subsubsection*{Feature 11: List all projects}    %simon3
+\subsubsection{Feature 11: List all projects}    %simon3
 %10. Create a detailed report of my project, which showcases relevant metrics for evaluation. DONE
 \begin{lstlisting}
 Feature: List all projects

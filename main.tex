@@ -38,7 +38,8 @@
 \usepackage{tabularx}
 \usepackage[numbers]{natbib}
 \usepackage{verbatim}
-
+\usepackage{rotating}
+\usepackage{booktabs}
 
 \usepackage{xcolor}
 \usepackage{listings}
@@ -102,8 +103,6 @@ numbersep=0.5cm
 \lhead{\Title} %rightH title
 \cfoot{\thepage}
 
-\setcounter{tocdepth}{4}
-\setcounter{secnumdepth}{3}
 
 
 % --- End of page settings ---
@@ -115,9 +114,15 @@ numbersep=0.5cm
 \input{sources/0_frontpage.tex}
 
 \newpage
+\section*{Contribution Table}
+\input{sources/00_contribution_table} 
+
+\newpage
 \doublespacing
 %\addcontentsline{toc}{section}{Table of Contents}
 \renewcommand{\baselinestretch}{1}\normalsize
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{2}
 \tableofcontents
 \renewcommand{\baselinestretch}{1}\normalsize
 %\singlespacing
@@ -125,12 +130,12 @@ numbersep=0.5cm
 
 \newpage
 \pagenumbering{arabic} 
-\fancyfoot[C]{Page \thepage\ of \pageref{EndOfText}}
+\fancyfoot[C]{Page \thepage\ of \pageref*{LastPage}}
 
 \section{Requirements specification} \label{ch1}
 \input{sources/1_requirements_specification} 
 
-\section{Program Design} \label{ch1}
+\section{Program Design} \label{ch2}
 \input{sources/2_program_design} 
 
 \label{EndOfText}
